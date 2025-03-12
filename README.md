@@ -21,7 +21,7 @@ Fixed Length, Random Rotation: The shape will have a constant size, but its rota
 Random Length, Fixed Rotation: The shape's size will vary randomly, but it will have a fixed rotation angle for all images.
 Random Length, Random Rotation: Both the shape's size and its rotation angle will vary randomly for each image.
 
-[optional]: the background color can be random and be filled with random gassian noise (which is good to answer the robustness question)
+[optional]: the background color can be random and be filled with random Gaussian noise (which is good to answer the robustness question)
 
 # Task Description:
 
@@ -36,9 +36,9 @@ Create DataLoader for each dataset subset with a suitable batch size.
 
 ## Design a useful vision model that:
 
-You can design any machine learning-based vision model such as: CNN-based model, Transfermer-based model, etc.
+You can design any machine learning-based vision model, such as a CNN-based model, Transfermer-based model, etc.
 
-Kindly provide the reason why you want to choose this model?
+Kindly provide the reason why you want to choose this model.
 
 ## Training the Model:
 
@@ -49,7 +49,7 @@ Choose the training strategy (e.g., early stopping, learning rate scheduling).
 Implement checkpoints to save the model at regular intervals.
 Include inline comments explaining the choice of hyperparameters.
 
-kindly explain the reasons behind choosing these training settings.
+Kindly explain the reasons behind choosing these training settings.
 
 ## Testing and Validation:
 
@@ -65,7 +65,7 @@ Visualize some sample predictions with actual labels vs. predicted labels.
 ## Explanation:
 
 Free to tell us, how can we learn from these dataset and examples.
-How can we imporved the accuracy of the model?
+How can we improve the accuracy of the model?
 
 ## Documentation and Code Quality:
 
@@ -124,20 +124,20 @@ By following these steps, you can ensure that your submission is organized and p
 
 ----
 
-# Bonus 1. The Problem of Waiting My Luggage (optiona)
+# Bonus 1. The Problem of Waiting for My Luggage (optional)
 
 Today, you’re a traveler.
 After a long journey, you finally get off the plane, and then you watch a pile of luggage spinning around.
 But after a long wait, your luggage still hasn’t come.
 How much longer do you have to wait?
 
-we may create some of asumptions to solve this problem?
+We may create some assumptions to solve this problem.
 
 1. The luggage must be on the airplane before it can be transferred to the baggage claim area. 
 
 2. The conditional probability of receiving the luggage increases linearly over time. After 10 minutes, the probability becomes 1:
 
-3. We have ignorance about the whether the lagguge is still in the airplane or not (time-independent).
+3. We have ignorance about whether the luggage is still in the airplane or not (time-independent).
 
 $$
 P(S=1)=0.5
@@ -145,7 +145,7 @@ $$
 
 Kindly provide your thoughts and conducts on these questions.
 
-A. After 5 minutes, what is the conditional probability that the luggage is still on the airplane? (It means I can't see the luggage in these five minutes)
+A. After 5 minutes, what is the conditional probability that the luggage is still on the airplane? (It means I can't see the luggage in these five minutes.)
 
 B. How does the conditional probability change over time? Use a plot to show the change in probability.
 
@@ -161,18 +161,18 @@ B. How does the conditional probability change over time? Use a plot to show the
 | Total      | 47                           | 13            | 49                           | 11            |
 
 
-Today you are a doctor: you may face a problem that the treatment effect reverses.
+Today, you are a doctor: you may face a problem that the treatment effect reverses.
 
 The key observation is that, when controlling for gender, the drug has a negative effect on the disease, but when considering the total population without controlling for gender, the effect seems reversed. The doctor is confused by the existence of a drug that has harmful effects on both genders but is beneficial for everyone. 
 
-How can we explain the result? Is that really a paradox? 
+How can we explain the result? Is that a paradox? 
 
 This can be explained in several ways depending on the assumptions made about the relationships between the variables.
 
-Kindly explain the result and provide the numberical results over these folowing differnt causal asumpptions:
+Kindly explain the result and provide the numerical results over these following different causal assumptions:
 
-A. Take the gender as confounding factor on both drug and disease: gender is considered a confounder, meaning it affects both the treatment (drug) and the outcome (disease). The drug has a direct effect on the disease.
+A. Take the gender as a confounding factor on both drug and disease: gender is considered a confounder, meaning it affects both the treatment (drug) and the outcome (disease). The drug has a direct effect on the disease.
 
-B. Take the gender as mediator (Suppose drug have super power change the gender): meaning that the drug has effects both on gender and disease, and gender then affects the disease only. 
+B. Take the gender as a mediator (Suppose drug have super power change the gender): meaning that the drug has effects both on gender and disease, and gender then affects the disease only. 
 
-C. Whether A and B have different results? If yes, which should we trust and explaining?
+C. Do A and B have different results? If yes, which should we trust and explain?
