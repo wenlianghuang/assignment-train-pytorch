@@ -1,57 +1,4 @@
-# 1. The Problem of Waiting My Luggage
-
-Today, you’re a traveler.
-After a long journey, you finally get off the plane, and then you watch a pile of luggage spinning around.
-But after a long wait, your luggage still hasn’t come.
-How much longer do you have to wait?
-
-we may create some of asumptions to solve this problem?
-
-1. The luggage must be on the airplane before it can be transferred to the baggage claim area. 
-
-2. The conditional probability of receiving the luggage increases linearly over time. After 10 minutes, the probability becomes 1:
-
-3. We have ignorance about the whether the lagguge is still in the airplane or not (time-independent).
-
-$$
-P(S=1)=0.5
-$$
-
-Kindly provide your thoughts and conducts on these questions.
-
-A. After 5 minutes, what is the conditional probability that the luggage is still on the airplane? (It means I can't see the luggage in these five minutes)
-
-B. How does the conditional probability change over time? Use a plot to show the change in probability.
-
-
-# 2. Simpson’s Paradox in Clinical Studies: When the Treatment Effect Reverses
-
-
-|            | Control Group (No Medication) |               | Treatment Group (Medication) |               |
-|------------|-----------------------------|---------------|-----------------------------|---------------|
-|            | Disease = 0                 | Disease = 1   | Disease = 0                 | Disease = 1   |
-| Male       | 19                           | 1             | 37                           | 3             |
-| Female     | 28                           | 12            | 12                           | 8             |
-| Total      | 47                           | 13            | 49                           | 11            |
-
-
-Today you are a doctor: you may face a problem that the treatment effect reverses.
-
-The key observation is that, when controlling for gender, the drug has a negative effect on the disease, but when considering the total population without controlling for gender, the effect seems reversed. The doctor is confused by the existence of a drug that has harmful effects on both genders but is beneficial for everyone. 
-
-How can we explain the result? Is that really a paradox? 
-
-This can be explained in several ways depending on the assumptions made about the relationships between the variables.
-
-Kindly explain the result and provide the numberical results over these folowing differnt causal asumpptions:
-
-A. Take the gender as confounding factor on both drug and disease: gender is considered a confounder, meaning it affects both the treatment (drug) and the outcome (disease). The drug has a direct effect on the disease.
-
-B. Take the gender as mediator (Suppose drug have super power change the gender): meaning that the drug has effects both on gender and disease, and gender then affects the disease only. 
-
-C. Whether A and B have different results? If yes, which should we trust and explaining?
-
-# 3. Basic Shape Classifier
+# Basic Shape Classifier
 
 ## Objective:
 Develop a Jupyter Notebook that demonstrates the training, testing, and validation of a simple vision machine learning model to classify images into three categories: circles, squares, and triangles.
@@ -174,3 +121,58 @@ The link to your GitHub repository containing the completed assignment.
 After submitting your assignment, you may follow up with an email if you have not received an acknowledgment within a reasonable time frame (e.g., one week).
 Be prepared to discuss your project and answer any questions that may arise during the review process.
 By following these steps, you can ensure that your submission is organized and professional, reflecting your abilities and attention to detail. Good luck with your assignment!
+
+----
+
+# Bonus 1. The Problem of Waiting My Luggage (optiona)
+
+Today, you’re a traveler.
+After a long journey, you finally get off the plane, and then you watch a pile of luggage spinning around.
+But after a long wait, your luggage still hasn’t come.
+How much longer do you have to wait?
+
+we may create some of asumptions to solve this problem?
+
+1. The luggage must be on the airplane before it can be transferred to the baggage claim area. 
+
+2. The conditional probability of receiving the luggage increases linearly over time. After 10 minutes, the probability becomes 1:
+
+3. We have ignorance about the whether the lagguge is still in the airplane or not (time-independent).
+
+$$
+P(S=1)=0.5
+$$
+
+Kindly provide your thoughts and conducts on these questions.
+
+A. After 5 minutes, what is the conditional probability that the luggage is still on the airplane? (It means I can't see the luggage in these five minutes)
+
+B. How does the conditional probability change over time? Use a plot to show the change in probability.
+
+
+# Bonus 2. Simpson’s Paradox in Clinical Studies: When the Treatment Effect Reverses (optional)
+
+
+|            | Control Group (No Medication) |               | Treatment Group (Medication) |               |
+|------------|-----------------------------|---------------|-----------------------------|---------------|
+|            | Disease = 0                 | Disease = 1   | Disease = 0                 | Disease = 1   |
+| Male       | 19                           | 1             | 37                           | 3             |
+| Female     | 28                           | 12            | 12                           | 8             |
+| Total      | 47                           | 13            | 49                           | 11            |
+
+
+Today you are a doctor: you may face a problem that the treatment effect reverses.
+
+The key observation is that, when controlling for gender, the drug has a negative effect on the disease, but when considering the total population without controlling for gender, the effect seems reversed. The doctor is confused by the existence of a drug that has harmful effects on both genders but is beneficial for everyone. 
+
+How can we explain the result? Is that really a paradox? 
+
+This can be explained in several ways depending on the assumptions made about the relationships between the variables.
+
+Kindly explain the result and provide the numberical results over these folowing differnt causal asumpptions:
+
+A. Take the gender as confounding factor on both drug and disease: gender is considered a confounder, meaning it affects both the treatment (drug) and the outcome (disease). The drug has a direct effect on the disease.
+
+B. Take the gender as mediator (Suppose drug have super power change the gender): meaning that the drug has effects both on gender and disease, and gender then affects the disease only. 
+
+C. Whether A and B have different results? If yes, which should we trust and explaining?
