@@ -6,7 +6,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
-
+import shutil
 # Function to generate a single image with a geometric shape
 def generate_shape_image(shape, size, rotation, img_size=(128, 128), noise=False):
     """
@@ -95,7 +95,7 @@ class ShapeDataset(Dataset):
         return image, label
 
 # Function to generate the dataset and save it to a folder
-def generate_dataset(output_dir="dataset", num_images_per_class=100, img_size=(128, 128), noise=False):
+def generate_dataset(output_dir="dataset", num_images_per_class=1000, img_size=(128, 128), noise=False):
     """
     Generate a dataset of images with geometric shapes and save them to a folder.
 
@@ -160,7 +160,7 @@ def load_dataset_from_folder(folder="dataset"):
     return data, labels
 
 # Main function to prepare the dataset and DataLoader
-def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_per_class=100, img_size=(128, 128), noise=False, dataset_dir="dataset"):
+def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_per_class=1000, img_size=(128, 128), noise=False, dataset_dir="dataset"):
     """
     Prepare PyTorch DataLoaders for training, validation, and testing.
 
@@ -176,10 +176,18 @@ def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_p
     Returns:
         DataLoader, DataLoader, DataLoader: DataLoaders for training, validation, and testing.
     """
+    #if not Path(dataset_dir).exists():
+    #    print(f"Dataset folder '{dataset_dir}' not found. Generating dataset...")
+    #    generate_dataset(output_dir=dataset_dir, num_images_per_class=num_images_per_class, img_size=img_size, noise=noise)
+    
+    # Generate the dataset no matter if it exists or not
     if not Path(dataset_dir).exists():
         print(f"Dataset folder '{dataset_dir}' not found. Generating dataset...")
         generate_dataset(output_dir=dataset_dir, num_images_per_class=num_images_per_class, img_size=img_size, noise=noise)
-
+    else:
+        shutil.rmtree(dataset_dir)  # Remove existing dataset folder
+        generate_dataset(output_dir=dataset_dir, num_images_per_class=num_images_per_class, img_size=img_size, noise=noise)
+    
     data, labels = load_dataset_from_folder(folder=dataset_dir)
 
     # Split the dataset into train, validation, and test sets
@@ -200,7 +208,7 @@ def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_p
 
 # Example usage
 if __name__ == "__main__":
-    train_loader, val_loader, test_loader = prepare_dataloaders(dataset_dir="dataset")
+    train_loader, val_loader, test_loader = prepare_dataloaders(dataset_dir="dataset",noise=True)
     print(f"Number of training batches: {len(train_loader)}")
     print(f"Number of validation batches: {len(val_loader)}")
     print(f"Number of testing batches: {len(test_loader)}")

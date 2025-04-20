@@ -166,10 +166,10 @@ if __name__ == "__main__":
     # Initialize model, loss function, and optimizer
     model = SimpleCNN()
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.003)
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     # Train the model
-    train_losses, val_losses = train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=100, device=device)
+    train_losses, val_losses = train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=30, device=device)
 
     # Plot losses
     plot_losses(train_losses, val_losses)
