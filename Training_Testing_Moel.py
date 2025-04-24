@@ -11,11 +11,11 @@ from Shape_Classifier import *
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1)  # Input: 3x128x128, Output: 32x128x128
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)  # Output: 64x128x128
-        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1)  # Output: 128x64x64
-        self.conv4 = nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1)  # Output: 256x32x32
-        self.conv5 = nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1)  # Output: 512x16x16
+        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1)  #Input: 3x128x128 Output: 32x64x64
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)  #Input: 32x64x64 Output: 64x32x132
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1) #Input: 64x32x32 Output: 128x16x16 
+        self.conv4 = nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1) #Input: 128x16x16 Output: 256x8x8 
+        self.conv5 = nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1) #Input: 256x8x8 Output: 512x4x4 
 
         # Calculate the flattened size after all convolutions and pooling
         self.flattened_size = 512 * 4 * 4  # Output after conv5 and pooling (512x4x4)

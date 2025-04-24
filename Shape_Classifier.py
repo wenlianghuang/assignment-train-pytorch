@@ -191,7 +191,7 @@ def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_p
     data, labels = load_dataset_from_folder(folder=dataset_dir)
 
     # Split the dataset into train, validation, and test sets
-    train_data, test_data, train_labels, test_labels = train_test_split(data, labels, test_size=test_size, stratify=labels)
+    train_data, test_data, train_labels, test_labels = train_test_split(data, labels, test_size=test_size, stratify=labels) # stratify ensures that the split maintains the same proportion of classes
     train_data, val_data, train_labels, val_labels = train_test_split(train_data, train_labels, test_size=val_size, stratify=train_labels)
 
     # Create PyTorch Datasets
