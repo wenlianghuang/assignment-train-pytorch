@@ -95,7 +95,7 @@ class ShapeDataset(Dataset):
         return image, label
 
 # Function to generate the dataset and save it to a folder
-def generate_dataset(output_dir="dataset", num_images_per_class=1000, img_size=(128, 128), noise=False):
+def generate_dataset(output_dir="dataset", num_images_per_class=1000, img_size=(128, 128), noise=True):
     """
     Generate a dataset of images with geometric shapes and save them to a folder.
 

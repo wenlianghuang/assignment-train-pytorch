@@ -23,7 +23,9 @@ class SimpleCNN(nn.Module):
         self.fc1 = nn.Linear(self.flattened_size, 1024)  # Fully connected layer
         self.fc2 = nn.Linear(1024, 512)
         self.fc3 = nn.Linear(512, 3)  # Output: 3 classes (circle, square, triangle)
-
+        
+        self.dropout = nn.Dropout(0.5)  # Dropout layer to prevent overfitting
+        
     def forward(self, x):
         x = F.relu(self.conv1(x))
         x = F.max_pool2d(x, 2)  # Downsample: 32x64x64
