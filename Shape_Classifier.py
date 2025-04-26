@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms
 from sklearn.model_selection import train_test_split
 import shutil
 # Function to generate a single image with a geometric shape
@@ -91,7 +92,7 @@ class ShapeDataset(Dataset):
             image = self.transform(image)
 
         # Convert image to tensor
-        image = torch.tensor(np.array(image).transpose(2, 0, 1), dtype=torch.float32) / 255.0
+        #image = torch.tensor(np.array(image).transpose(2, 0, 1), dtype=torch.float32) / 255.0
         return image, label
 
 # Function to generate the dataset and save it to a folder
@@ -165,20 +166,32 @@ def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_p
     Prepare PyTorch DataLoaders for training, validation, and testing.
 
     Args:
-        batch_size (int): Batch size for the DataLoader.
-        test_size (float): Proportion of the dataset to include in the test split.
-        val_size (float): Proportion of the dataset to include in the validation split.
-        num_images_per_class (int): Number of images per shape class.
-        img_size (tuple): Size of the images (width, height).
-        noise (bool): Whether to add Gaussian noise to the images.
-        dataset_dir (str): Directory to save/load the dataset.
+        batch_size (int): Batch size for the DataLoader. Default is 32.
+        test_size (float): Proportion of the dataset to include in the test split. Default is 0.2.
+        val_size (float): Proportion of the dataset to include in the validation split. Default is 0.1.
+        num_images_per_class (int): Number of images to generate per shape class. Default is 1000.
+        img_size (tuple): Size of the images (width, height). Default is (128, 128).
+        noise (bool): Whether to add Gaussian noise to the generated images. Default is False.
+        dataset_dir (str): Directory to save/load the dataset. Default is "dataset".
 
     Returns:
-        DataLoader, DataLoader, DataLoader: DataLoaders for training, validation, and testing.
+        tuple: A tuple containing three PyTorch DataLoaders:
+            - train_loader (DataLoader): DataLoader for the training set.
+            - val_loader (DataLoader): DataLoader for the validation set.
+            - test_loader (DataLoader): DataLoader for the testing set.
     """
-    #if not Path(dataset_dir).exists():
-    #    print(f"Dataset folder '{dataset_dir}' not found. Generating dataset...")
-    #    generate_dataset(output_dir=dataset_dir, num_images_per_class=num_images_per_class, img_size=img_size, noise=noise)
+    # Define data augmentation transforms
+    train_transform = transforms.Compose([
+        transforms.RandomRotation(30),
+        transforms.RandomHorizontalFlip(), #Randomly flips the image horizontally with a 50% probability, simulating mirrored versions of the data.
+        transforms.RandomVerticalFlip(), # Randomly flips the image vertically with a 50% probability, adding further variability
+        transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1), #Randomly adjusts the brightness, contrast, saturation, and hue of the image within specified ranges, making the model more robust to lighting and color variations.
+        transforms.ToTensor() #Converts the image from a PIL image or NumPy array into a PyTorch tensor and scales pixel values to the range [0, 1].
+    ])
+    
+    val_test_transform = transforms.Compose([
+        transforms.ToTensor()
+    ])
     
     # Generate the dataset no matter if it exists or not
     if not Path(dataset_dir).exists():
@@ -195,9 +208,9 @@ def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_p
     train_data, val_data, train_labels, val_labels = train_test_split(train_data, train_labels, test_size=val_size, stratify=train_labels)
 
     # Create PyTorch Datasets
-    train_dataset = ShapeDataset(train_data, train_labels)
-    val_dataset = ShapeDataset(val_data, val_labels)
-    test_dataset = ShapeDataset(test_data, test_labels)
+    train_dataset = ShapeDataset(train_data, train_labels, train_transform)
+    val_dataset = ShapeDataset(val_data, val_labels, val_test_transform)
+    test_dataset = ShapeDataset(test_data, test_labels, val_test_transform)
 
     # Create DataLoaders
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
@@ -205,6 +218,7 @@ def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_p
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     return train_loader, val_loader, test_loader
+    
 
 # Example usage
 if __name__ == "__main__":

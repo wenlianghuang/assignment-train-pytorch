@@ -11,10 +11,30 @@ from Shape_Classifier import *
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1)  #Input: 3x128x128 Output: 32x64x64
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)  #Input: 32x64x64 Output: 64x32x132
-        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1) #Input: 64x32x32 Output: 128x16x16 
-        self.conv4 = nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1) #Input: 128x16x16 Output: 256x8x8 
+        #self.conv1 = nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1)  #Input: 3x128x128 Output: 32x64x64
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),  #Input: 3x128x128 Output: 32x64x64
+            nn.ReLU(),
+            nn.Dropout(0.6)
+        )
+        #self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)  #Input: 32x64x64 Output: 64x32x132
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),  #Input: 32x64x64 Output: 64x32x32
+            nn.ReLU(),
+            nn.Dropout(0.6)
+        )
+        #self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1) #Input: 64x32x32 Output: 128x16x16 
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1), #Input: 64x32x32 Output: 128x16x16
+            nn.ReLU(),
+            nn.Dropout(0.6)
+        )
+        #self.conv4 = nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1) #Input: 128x16x16 Output: 256x8x8 
+        self.conv4 = nn.Sequential(
+            nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1), #Input: 128x16x16 Output: 256x8x8
+            nn.ReLU(),
+            nn.Dropout(0.6)
+        )
         self.conv5 = nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1) #Input: 256x8x8 Output: 512x4x4 
 
         # Calculate the flattened size after all convolutions and pooling
@@ -24,7 +44,7 @@ class SimpleCNN(nn.Module):
         self.fc2 = nn.Linear(1024, 512)
         self.fc3 = nn.Linear(512, 3)  # Output: 3 classes (circle, square, triangle)
         
-        self.dropout = nn.Dropout(0.5)  # Dropout layer to prevent overfitting
+        
         
     def forward(self, x):
         x = F.relu(self.conv1(x))
@@ -168,7 +188,7 @@ if __name__ == "__main__":
     # Initialize model, loss function, and optimizer
     model = SimpleCNN()
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=0.0001,weight_decay=0.0001)
 
     # Train the model
     train_losses, val_losses = train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=30, device=device)
