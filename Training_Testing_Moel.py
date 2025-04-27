@@ -131,15 +131,15 @@ def test_model(model, test_loader, device='cpu'):
     visualize_samples(sample_images[:5], sample_labels[:5], sample_preds[:5])
 
     # Confusion matrix
-    '''
+    
     cm = confusion_matrix(all_labels, all_preds)
     plt.figure(figsize=(8, 6))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Circle', 'Square', 'Triangle'], yticklabels=['Circle', 'Square', 'Triangle'])
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.title('Confusion Matrix')
-    plt.show()
-    '''
+    #plt.show()
+    plt.savefig('confusion_matrix.png')
 def visualize_samples(images, labels, preds,class_names = ['Circle', 'Square', 'Triangle']):
     num_samples = len(images)
     plt.figure(figsize=(15, 5))
