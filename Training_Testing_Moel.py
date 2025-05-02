@@ -15,25 +15,25 @@ class SimpleCNN(nn.Module):
         self.conv1 = nn.Sequential(
             nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),  #Input: 3x128x128 Output: 32x64x64
             nn.ReLU(),
-            nn.Dropout(0.6)
+            nn.Dropout(0.2)
         )
         #self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)  #Input: 32x64x64 Output: 64x32x132
         self.conv2 = nn.Sequential(
             nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),  #Input: 32x64x64 Output: 64x32x32
             nn.ReLU(),
-            nn.Dropout(0.6)
+            nn.Dropout(0.2)
         )
         #self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1) #Input: 64x32x32 Output: 128x16x16 
         self.conv3 = nn.Sequential(
             nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1), #Input: 64x32x32 Output: 128x16x16
             nn.ReLU(),
-            nn.Dropout(0.6)
+            nn.Dropout(0.2)
         )
         #self.conv4 = nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1) #Input: 128x16x16 Output: 256x8x8 
         self.conv4 = nn.Sequential(
             nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1), #Input: 128x16x16 Output: 256x8x8
             nn.ReLU(),
-            nn.Dropout(0.6)
+            nn.Dropout(0.2)
         )
         self.conv5 = nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1) #Input: 256x8x8 Output: 512x4x4 
 
@@ -176,10 +176,10 @@ if __name__ == "__main__":
     print(f"Using device: {device}")
     # Prepare data loaders
     train_loader, val_loader, test_loader = prepare_dataloaders(
-        batch_size=32, 
+        batch_size=64, 
         test_size=0.2, 
         val_size=0.1, 
-        num_images_per_class=2000, 
+        num_images_per_class=1000, 
         img_size=(128, 128), 
         noise=False, 
         dataset_dir="dataset"

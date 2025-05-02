@@ -25,14 +25,21 @@ def generate_shape_image(shape, size, rotation, img_size=(128, 128), noise=False
     """
     img = Image.new('RGB', img_size, (255, 255, 255))
     draw = ImageDraw.Draw(img)
-    center = (img_size[0] // 2, img_size[1] // 2)
+    #center = (img_size[0] // 2, img_size[1] // 2)
 
+    # Randomly select the center position of the shape within the image
+    center_x = random.randint(size // 2, img_size[0] - size // 2)
+    center_y = random.randint(size // 2, img_size[1] - size // 2)
+    center = (center_x, center_y)
+    
+    # Randomly select the center position of the shape within the image
+    shape_color = tuple(random.randint(0, 255) for _ in range(3))  # Random color for the shape
     if shape == 'circle':
         radius = size // 2
-        draw.ellipse([center[0] - radius, center[1] - radius, center[0] + radius, center[1] + radius], fill=(0, 0, 0))
+        draw.ellipse([center[0] - radius, center[1] - radius, center[0] + radius, center[1] + radius], fill=shape_color)
     elif shape == 'square':
         half_size = size // 2
-        draw.rectangle([center[0] - half_size, center[1] - half_size, center[0] + half_size, center[1] + half_size], fill=(0, 0, 0))
+        draw.rectangle([center[0] - half_size, center[1] - half_size, center[0] + half_size, center[1] + half_size], fill=shape_color)
     elif shape == 'triangle':
         half_size = size // 2
         points = [
@@ -40,7 +47,7 @@ def generate_shape_image(shape, size, rotation, img_size=(128, 128), noise=False
             (center[0] - half_size, center[1] + half_size),
             (center[0] + half_size, center[1] + half_size)
         ]
-        draw.polygon(points, fill=(0, 0, 0))
+        draw.polygon(points, fill=shape_color)
 
     if noise:
         img = add_gaussian_noise(img)

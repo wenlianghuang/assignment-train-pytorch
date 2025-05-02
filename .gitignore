@@ -1,4 +1,5 @@
 __pycache__
 dataset
 *.pth
-*test*
+*test
+vit-base-patch16-224
