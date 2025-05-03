@@ -146,23 +146,37 @@ if __name__ == "__main__":
 
     # Prepare data loaders
     train_loader, val_loader, test_loader = prepare_dataloaders(
-        batch_size=64, 
+        batch_size=256, 
         test_size=0.2, 
         val_size=0.1, 
-        num_images_per_class=1000, 
+        num_images_per_class=10000, 
         img_size=(128, 128), 
         noise=False, 
         dataset_dir="dataset"
     )
 
     # Initialize model, loss function, and optimizer
-    model = VisionTransformer(img_size=128, patch_size=16, num_classes=3, dim=128, depth=6, heads=8, mlp_dim=256, dropout=0.1)
+    '''
+    model = VisionTransformer(img_size=128, patch_size=16, num_classes=3, dim=128, depth=6, heads=8, mlp_dim=256, dropout=0.3)
     model.to(device)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.0001, weight_decay=0.0001)
+    optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=0.0001)
+    '''
+    
+    # Initialize model, loss function, and optimizer
+    model = VisionTransformer(img_size=128, patch_size=8, num_classes=3, dim=128, depth=4, heads=8, mlp_dim=256, dropout=0.1)
+    model.to(device)
+
+    # Adjust learning rate and add scheduler
+    optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=0.0001)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
+
+    # Add class weights to CrossEntropyLoss
+    class_weights = torch.tensor([1.0, 2.0, 1.5]).to(device)
+    criterion = nn.CrossEntropyLoss(weight=class_weights)
 
     # Train the model
-    train_losses, val_losses = train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=30, device=device)
+    train_losses, val_losses = train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=50, device=device)
 
     # Plot losses
     plot_losses(train_losses, val_losses)

@@ -179,7 +179,7 @@ if __name__ == "__main__":
         batch_size=64, 
         test_size=0.2, 
         val_size=0.1, 
-        num_images_per_class=1000, 
+        num_images_per_class=10000, 
         img_size=(128, 128), 
         noise=False, 
         dataset_dir="dataset"
