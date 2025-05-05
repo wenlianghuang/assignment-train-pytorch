@@ -4,3 +4,4 @@ dataset
 *test
 vit-base-patch16-224
 data*
+.env

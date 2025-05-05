@@ -9,7 +9,10 @@ from torch.cuda.amp import GradScaler, autocast  # For mixed precision training
 
 from Shape_Classifier import *
 
-
+from huggingface_hub import login
+from dotenv import load_dotenv
+load_dotenv()
+login(os.getenv("hf_token"))
 # Hyperparameters
 batch_size = 16  # Reduced batch size
 learning_rate = 1e-2  # Lower learning rate
