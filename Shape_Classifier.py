@@ -168,7 +168,7 @@ def load_dataset_from_folder(folder="dataset"):
     return data, labels
 
 # Main function to prepare the dataset and DataLoader
-def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_per_class=1000, img_size=(128, 128), noise=False, dataset_dir="dataset"):
+def prepare_dataloaders(batch_size=32, test_size=0.2, val_size=0.1, num_images_per_class=10000, img_size=(128, 128), noise=False, dataset_dir="dataset"):
     """
     Prepare PyTorch DataLoaders for training, validation, and testing.
 
