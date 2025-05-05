@@ -146,7 +146,7 @@ if __name__ == "__main__":
 
     # Prepare data loaders
     train_loader, val_loader, test_loader = prepare_dataloaders(
-        batch_size=64, 
+        batch_size=128, 
         test_size=0.2, 
         val_size=0.1, 
         num_images_per_class=1000, 
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     optimizer = optim.Adam(model.parameters(), lr=0.0001, weight_decay=0.0001)
 
     # Train the model
-    train_losses, val_losses = train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=30, device=device)
+    train_losses, val_losses = train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=45, device=device)
 
     # Plot losses
     plot_losses(train_losses, val_losses)
